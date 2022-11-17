@@ -5,7 +5,7 @@ const RequireAuth = ({ allowedRoles }) => {
     const [animationIsFinished, setAnimationIsFinished] = useOutletContext();
     const { auth } = useAuth();
     const location = useLocation();
-    console.log("hab ezab")
+    
      console.log(auth);
      console.log(auth.is_staff)
      console.log(allowedRoles)

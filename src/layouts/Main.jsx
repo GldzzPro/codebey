@@ -24,7 +24,7 @@ const MainLayout = () => {
     const mtl = useRef();
 
   useLayoutEffect(() => {
-      console.log("zabouromek :"+auth.user);
+      
        console.log("layet out another time : "+animationIsFinished);
        const ctx = gsap.context(() => {
               mtl.current && mtl.current.progress(0).kill();
