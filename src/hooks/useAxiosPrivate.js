@@ -8,6 +8,7 @@ const useAxiosPrivate = () => {
     const { auth } = useAuth();
 
     useEffect(() => {
+        console.log("refresh token activated it cheat")
 
         const requestIntercept = axiosPrivate.interceptors.request.use(
             config => {
@@ -24,7 +25,7 @@ const useAxiosPrivate = () => {
                 const prevRequest = error?.config;
                 if (error?.response?.status === 403 && !prevRequest?.sent) {
                     prevRequest.sent = true;
-                    const newAccessToken = await refresh();
+                    const newAccessToken = await refresh().catch((err)=> console.log(err));
                     prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
                     return axiosPrivate(prevRequest);
                 }

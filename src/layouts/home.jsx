@@ -4,6 +4,7 @@ import "../App.css" ;
 import Courses from "./courses";
 import { Link } from "react-router-dom";
 import Body from "./Body";
+import useAuth from "../hooks/useAuth";
 
 import svg from "../whitesvg.svg" ;
 
@@ -11,6 +12,10 @@ import svg from "../whitesvg.svg" ;
 import { useOutletContext } from "react-router-dom";
 
 export default function Home() {
+
+  
+  const [authenticated , setAuth]= useState();
+  console.log("home : outside ule / "+authenticated?.user );
   const [animationIsFinished, setAnimationIsFinished] = useOutletContext();
   const [cubeISReady, setCubeISReady] =useState(false);
   const showNav = ()=> setAnimationIsFinished(true) ;
@@ -26,10 +31,15 @@ export default function Home() {
   const app = useRef();
 
     const tl = useRef();
+  useEffect(()=>{
+   
 
+    console.log("body : inside ule / "+authenticated?.user );
+  },[authenticated])
   useLayoutEffect(() => {
       hideNav();
       hideCube();
+      
         const ctx = gsap.context(() => {
           
         tl.current && tl.current.progress(0).kill();
@@ -69,7 +79,7 @@ export default function Home() {
     <span>programming life</span>
   </div>
    }
-        {cubeISReady &&  <Body/>  }
+        {cubeISReady &&  <Body auth={authenticated}/>  }
         {
         cubeISReady &&  
         <div className="mouse">

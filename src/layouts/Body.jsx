@@ -6,10 +6,11 @@ import { Draggable } from 'gsap/all'
 import { Link ,useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
-function Body() {
+function Body({auth}) {
+  console.log("body : outside ule / "+auth?.user );
+  const [authenticated , setAuth] = useState();
   const navigate = useNavigate();
     const [size, setSize] = useState([0, 0]);
-    const { auth } = useAuth();
     const updateSize = ()=> {
       console.log([window.innerWidth, window.innerHeight]);
             if( window.innerWidth - 950 < 150 && window.innerWidth - 950 > -150 ) {
@@ -22,6 +23,8 @@ function Body() {
     gsap.registerPlugin(Draggable);
     const [pos , setPos] = useState({ x:0, y:0 });
   useLayoutEffect(() => {
+    console.log("body : inside ule / "+auth?.user );
+    setAuth(auth);
     window.addEventListener('resize', updateSize); 
     let ctx = gsap.context(()=>{
         // let pos = { x:0, y:0 }
@@ -196,7 +199,7 @@ Draggable.create("#dragger",{
         window.removeEventListener('resize', updateSize);
         ctx.revert();
 } 
-      }, [size]);
+      }, [auth,size]);
        // short rotation back to 1
 
   return (
@@ -273,7 +276,7 @@ Draggable.create("#dragger",{
   </div>
     </div>
     <div className='buttons'>
-    { auth.user ? <p> welcome {auth.user} </p>  :
+    { authenticated?.user ? <p> welcome {auth.user} </p>  :
        <>
        <button id="login" onClick={()=>navigate("/login", { replace: true })} className='grid-item'> <Link to="login">Login</Link> </button>
       <button onClick={()=>navigate("/register", { replace: true })} className='grid-item'> <Link to="register">Register</Link> </button>
