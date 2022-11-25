@@ -4,6 +4,7 @@ import "../App.css" ;
 import Courses from "./courses";
 import { Link } from "react-router-dom";
 import Body from "./Body";
+import Second from "../components/second";
 import useAuth from "../hooks/useAuth";
 
 import svg from "../whitesvg.svg" ;
@@ -87,8 +88,14 @@ export default function Home() {
          <div className="rollshadow"></div>
         </div>  
         }
+
+       
         
+        {
+          cubeISReady && <Second/>
+        }
     </div>
+
     
     </React.Fragment>
   );
